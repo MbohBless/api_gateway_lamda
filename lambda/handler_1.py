@@ -2,11 +2,18 @@ import json
 
 
 def handler(event, context):
-    print('reequest: {}'.format(json.dumps(event)))
+    parameters = event['pathParameters']
+    query_string = event['queryStringParameters']
+    # body = json.loads(event['body'])
     return {
         'statusCode': 200,
-        'body': json.dumps('Hello from Lambda!'),
         'headers': {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        'body': json.dumps({
+            'parameters': parameters,
+            'query_string': query_string,
+           
+        })
     }
